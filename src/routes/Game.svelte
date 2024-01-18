@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import Countdown from './Countdown.svelte';
 	import Found from './Found.svelte';
 	import Grid from './Grid.svelte';
 	import { levels, type Level } from './levels';
@@ -8,6 +10,9 @@
 	let size: number = level.size;
 	let grid: string[] = createGrid(level);
 	let found: string[] = [];
+	let remaining: number = level.duration;
+	let duration: number = level.duration;
+	let playing: boolean = false;
 
 	function createGrid(level: Level) {
 		const copyLevel = level.emojis.slice();
@@ -23,10 +28,32 @@
 
 		return shuffle(pairs);
 	}
+
+	function countdown() {
+		const start = Date.now();
+		let remainingAtStart = remaining;
+
+		function loop() {
+			if (playing) return;
+			requestAnimationFrame(loop);
+
+			remaining = remainingAtStart - (Date.now() - start);
+			if (remaining <= 0) {
+				// TODO: The game has been lost
+				playing = false;
+			}
+		}
+
+		loop();
+	}
+
+	onMount(countdown);
 </script>
 
 <div class="game">
-	<div class="info"></div>
+	<div class="info">
+		<Countdown {remaining} duration={level.duration} />
+	</div>
 	<div class="grid-container">
 		<Grid
 			{grid}
@@ -53,11 +80,9 @@
 	.info {
 		width: 80em;
 		height: 10em;
-		background-color: goldenrod;
 	}
 	.grid-container {
 		width: 80em;
 		height: 80em;
-		background-color: teal;
 	}
 </style>
