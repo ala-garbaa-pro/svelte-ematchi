@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import Square from './Square.svelte';
 
 	export let grid: string[];
+	export let found: string[];
+
+	const dispatch = createEventDispatcher();
+
 	// -1 : unselected
 	let cardA: number = -1;
 	let cardB: number = -1;
@@ -21,6 +26,9 @@
 					if (grid[cardA] === grid[cardB]) {
 						// Correct emoji
 						console.log('Correct emoji');
+						dispatch('found', {
+							emoji
+						});
 					} else {
 						// Incorrect emoji
 						console.log('Incorrect emoji');
@@ -34,6 +42,7 @@
 				}
 			}}
 			selected={cardA === i || cardB === i}
+			found={found.includes(emoji)}
 		/>
 	{/each}
 </div>
