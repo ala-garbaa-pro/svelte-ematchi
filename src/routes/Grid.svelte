@@ -2,11 +2,39 @@
 	import Square from './Square.svelte';
 
 	export let grid: string[];
+	// -1 : unselected
+	let cardA: number = -1;
+	let cardB: number = -1;
+	let resetTimeout: number;
 </script>
 
 <div class="grid">
-	{#each grid as emoji}
-		<Square {emoji} />
+	{#each grid as emoji, i}
+		<Square
+			{emoji}
+			on:click={() => {
+				clearTimeout(resetTimeout);
+				if (cardA === -1 && cardB === -1) {
+					cardA = i;
+				} else if (cardB === -1) {
+					cardB = i;
+					if (grid[cardA] === grid[cardB]) {
+						// Correct emoji
+						console.log('Correct emoji');
+					} else {
+						// Incorrect emoji
+						console.log('Incorrect emoji');
+						resetTimeout = setTimeout(() => {
+							cardA = cardB = -1;
+						}, 300);
+					}
+				} else {
+					cardB = -1;
+					cardA = i;
+				}
+			}}
+			selected={cardA === i || cardB === i}
+		/>
 	{/each}
 </div>
 
