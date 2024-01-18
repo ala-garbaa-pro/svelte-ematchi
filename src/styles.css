@@ -1,10 +1,56 @@
+@import '@fontsource/grandstander';
+
 * {
 	position: relative;
 	box-sizing: border-box;
 }
 
-html,
+:root {
+	--bg-1: #c0b0df;
+	--bg-2: #a797c6;
+	--bg-3: #615f84;
+	--fg: #212242;
+	--card-border: #212242;
+	--card-border-found: #615f84;
+	--accent: #322f9f;
+}
+
+:root,
 body {
 	height: 100%;
 	margin: 0;
+	font-family:
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		'Open Sans',
+		'Helvetica Neue',
+		sans-serif;
+	background: var(--bg-1);
+	color: var(--fg);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg-1: #111;
+		--bg-2: #444;
+		--bg-3: #666;
+		--fg: #eee;
+		--accent: hsl(256.36deg 51.26% 43.3%);
+	}
+}
+
+p,
+header {
+	user-select: none;
+}
+
+button {
+	cursor: pointer;
+	text-transform: uppercase;
 }

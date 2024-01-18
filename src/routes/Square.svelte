@@ -1,65 +1,85 @@
 <script lang="ts">
 	import { send } from './transitions';
-	import { get_twemoji_path } from './utils';
+	import { get_twemoji_url } from './utils';
 
-	export let emoji: string;
+	export let value: string;
 	export let selected: boolean;
 	export let found: boolean;
 	export let group: 'a' | 'b';
 </script>
 
 <div class="square" class:flipped={selected || found}>
-	<button on:click></button>
-	<div class="background"></div>
+	<button on:click disabled={selected || found} />
+
+	<div class="background" class:found />
 	{#if !found}
-		<img out:send={{ key: `${emoji}:${group}` }} alt={emoji} src={get_twemoji_path(emoji)} />
+		<img alt={value} src={get_twemoji_url(value)} out:send={{ key: `${value}:${group}` }} />
 	{/if}
 </div>
 
 <style>
 	.square {
 		display: flex;
+		width: 100%;
+		height: 100%;
 		align-items: center;
 		justify-content: center;
 		transition: filter 0.2s;
 		transform-style: preserve-3d;
+		transform: rotateY(180deg);
 		transition: transform 0.4s;
 		user-select: none;
-		border-radius: 3em;
 	}
 
 	.square * {
 		backface-visibility: hidden;
-		border-radius: 3em;
-	}
-
-	.flipped {
-		background: #eee;
-		transform: rotateY(180deg);
-	}
-
-	.background {
-		position: absolute;
-		background: white;
-		border: 0.5em dashed #efe;
-		transform: rotateY(180deg);
-		width: 100%;
-		height: 100%;
 	}
 
 	button {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background: #eee;
-		border: 0;
-		font-size: inherit;
+		border: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: var(--bg-2);
+		border-radius: 1em;
+		transform: rotateY(180deg);
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	button:disabled {
+		color: inherit;
+	}
+
+	.flipped {
+		transform: rotateY(0);
+		z-index: 2;
+	}
+
+	.background {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: var(--bg-1);
+		border: 2px solid var(--accent);
+		border-radius: 1em;
+		transition: border 0.2s;
+		pointer-events: none;
+	}
+
+	.background.found {
+		border: 2px solid var(--bg-2);
 	}
 
 	img {
-		width: 8em;
-		height: 8em;
+		display: block;
+		font-size: 6em;
+		width: 1.75em;
+		height: 1.75em;
+		line-height: 1;
+		z-index: 2;
 		pointer-events: none;
-		transform: rotateY(180deg);
 	}
 </style>

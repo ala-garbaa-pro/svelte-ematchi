@@ -7,54 +7,38 @@
 
 	const dispatch = createEventDispatcher();
 
-	// -1 : unselected
-	let cardA: number = -1;
-	let cardB: number = -1;
-	let resetTimeout: number;
+	let a: number;
+	let b: number;
+	let reset_timeout: number;
 </script>
 
-<div class="grid">
-	{#each grid as emoji, i}
-		<Square
-			{emoji}
-			on:click={() => {
-				clearTimeout(resetTimeout);
-				if (cardA === -1 && cardB === -1) {
-					cardA = i;
-				} else if (cardB === -1) {
-					cardB = i;
-					if (grid[cardA] === grid[cardB]) {
-						// Correct emoji
-						console.log('Correct emoji');
-						dispatch('found', {
-							emoji
-						});
-					} else {
-						// Incorrect emoji
-						console.log('Incorrect emoji');
-						resetTimeout = setTimeout(() => {
-							cardA = cardB = -1;
-						}, 300);
-					}
-				} else {
-					cardB = -1;
-					cardA = i;
-				}
-			}}
-			selected={cardA === i || cardB === i}
-			found={found.includes(emoji)}
-			group={grid.indexOf(emoji) === i ? 'a' : 'b'}
-		/>
-	{/each}
-</div>
+{#each grid as square, i}
+	<Square
+		on:click={() => {
+			if (a > -1 && b > -1) {
+				clearTimeout(reset_timeout);
+				a = i;
+				b = -1;
+			} else if (a > -1) {
+				b = i;
 
-<style>
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(4, 1fr);
-		grid-gap: 0.2rem;
-		height: 100%;
-		perspective: 100vw;
-	}
-</style>
+				if (grid[a] === grid[b]) {
+					// correct — remove from grid
+					found = [...found, grid[a]];
+					dispatch('found', { emoji: grid[a] });
+				} else {
+					// incorrect — reset after timeout
+					reset_timeout = setTimeout(() => {
+						a = b = -1;
+					}, 1000);
+				}
+			} else {
+				a = i;
+			}
+		}}
+		value={square}
+		selected={a === i || b === i}
+		found={found.includes(square)}
+		group={i === grid.indexOf(square) ? 'a' : 'b'}
+	/>
+{/each}

@@ -1,15 +1,17 @@
 <script lang="ts">
+	import { flip } from 'svelte/animate';
 	import { receive } from './transitions';
-	import { get_twemoji_path } from './utils';
+	import { fade } from 'svelte/transition';
+	import { get_twemoji_url } from './utils';
 
 	export let found: string[];
 </script>
 
 <div class="found">
 	{#each found as emoji (emoji)}
-		<div class="pair">
-			<img in:receive={{ key: `${emoji}:a` }} alt={emoji} src={get_twemoji_path(emoji)} />
-			<img in:receive={{ key: `${emoji}:b` }} alt={emoji} src={get_twemoji_path(emoji)} />
+		<div in:fade={{ delay: 500 }} animate:flip={{ duration: 200, delay: 500 }} class="pair">
+			<img alt={emoji} src={get_twemoji_url(emoji)} in:receive={{ key: `${emoji}:a` }} />
+			<img alt={emoji} src={get_twemoji_url(emoji)} in:receive={{ key: `${emoji}:b` }} />
 		</div>
 	{/each}
 </div>
@@ -17,23 +19,30 @@
 <style>
 	.found {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
 		gap: 0.5em;
-		margin-top: 16px;
+		z-index: 3;
+		filter: drop-shadow(0.2em 0.4em 0.6em rgba(0, 0, 0, 0.1));
 	}
+
 	.pair {
-		width: 10em;
-		height: 10em;
-		background: white;
-		padding: 1em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: max(2.5em, calc(80em / (var(--size) * var(--size))));
+		width: 1.5em;
+		aspect-ratio: 1;
+		background: var(--bg-1);
 		border-radius: 50%;
-		filter: drop-shadow(0.2em 0.2em 0.5em rgba(0, 0, 0, 0.2));
-		margin-inline: 1em;
 	}
+
 	img {
+		display: block;
 		position: absolute;
-		width: 8em;
-		height: 8em;
+		width: 1.75em;
+		height: 1.75em;
+		line-height: 1;
 	}
 </style>
