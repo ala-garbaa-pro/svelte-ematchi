@@ -1,12 +1,13 @@
-<script>
+<script lang="ts">
+	import Square from './Square.svelte';
 
-	import Square from "./Square.svelte";
-
+	export let grid: string[];
 </script>
+
 <div class="grid">
-{#each Array(16) as _}
-     <Square />
-{/each}
+	{#each grid as emoji}
+		<Square {emoji} />
+	{/each}
 </div>
 
 <style>
@@ -14,7 +15,7 @@
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(4, 1fr);
-        grid-gap: 0.5rem;
-        height: 100%;
+		grid-gap: 0.2rem;
+		height: 100%;
 	}
 </style>
