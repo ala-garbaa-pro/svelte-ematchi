@@ -1,26 +1,32 @@
+<script>
+	import Grid from './Grid.svelte';
+</script>
+
 <div class="game">
 	<div class="info"></div>
-	<div class="grid-container"></div>
+	<div class="grid-container">
+		<Grid />
+	</div>
 	<div class="info"></div>
 </div>
 
-
 <style>
-    .game {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-    .info {
-        width: 80vmin;
-        height: 10vmin;
-        background-color: goldenrod;
-    }
-    .grid-container {
-        width: 80vmin;
-        height: 80vmin;
-        background-color: teal;
-    }
+	.game {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		font-size: min(1vmin, 0.3rem);
+	}
+	.info {
+		width: 80em;
+		height: 10em;
+		background-color: goldenrod;
+	}
+	.grid-container {
+		width: 80em;
+		height: 80em;
+		background-color: teal;
+	}
 </style>
