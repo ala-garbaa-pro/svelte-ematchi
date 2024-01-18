@@ -1,38 +1,16 @@
-# create-svelte
+# SvelteKit eMatchi
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Welcome to SvelteKit eMatchi, the Emoji Matching Game!
 
-## Creating a project
+Please take a moment to explore the code and, if you find it useful or interesting, consider giving it a star!
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Live Game Demo
+Check out the live game by visiting [SvelteKit eMatchi](https://svelte-ematchi.vercel.app/).
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Screenshots
+![SvelteKit eMatchi](https://raw.githubusercontent.com/ala-garbaa-pro/svelte-ematchi/main/poster.png)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Video Demonstrations
+Watch the gameplay in action on YouTube: [Emoji Matching Game - SvelteKit eMatchi](https://www.youtube.com/watch?v=1W-ETn6goFQ).
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+You can also view a video directly from this repository: [SvelteKit Game - Emoji Matching Game](https://raw.githubusercontent.com/ala-garbaa-pro/svelte-ematchi/main/SvelteKit%20Game%20-%20svelte-ematchi%20-%20the%20Emoji%20Matching%20Game.mp4).
