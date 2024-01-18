@@ -9,7 +9,7 @@
 		><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 			><title>pause</title><path
 				d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-				fill="#111"
+				fill="#AAA"
 			/></svg
 		></button
 	>
@@ -29,6 +29,8 @@
 		font-size: 8em;
 		width: 1em;
 		height: 1em;
+		background: transparent;
+		border: 0;
 	}
 
 	button svg {
@@ -37,6 +39,7 @@
 		height: 100%;
 		left: 0;
 		top: 0;
+		cursor: pointer;
 	}
 
 	.duration {
