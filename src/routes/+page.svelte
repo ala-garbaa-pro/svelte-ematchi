@@ -4,10 +4,16 @@
 	import Modal from './Modal.svelte';
 	import { levels } from './levels';
 	import '../styles.css';
+	import typewriter from '$lib/typewriter';
 
 	let state: 'waiting' | 'playing' | 'paused' | 'won' | 'lost' = 'waiting';
 
 	let game: Game;
+	let displayed = false;
+
+	$: {
+		if (state === 'playing') displayed = true;
+	}
 </script>
 
 <svelte:head>
@@ -23,6 +29,9 @@
 </svelte:head>
 
 <main>
+	{#if displayed}
+		<h2 class="ag" in:typewriter={{ speed: 20 }}>Developed by <a style="color:var(--accent)" target="_blank" href="https://www.alagarbaa.com/">Ala GARBAA</a></h2>
+	{/if}
 	<Game
 		bind:this={game}
 		on:play={() => {
@@ -80,6 +89,9 @@
 </main>
 
 <style>
+	.ag {
+		font-size: 2.5em;
+	}
 	main {
 		text-align: center;
 		height: 100%;
